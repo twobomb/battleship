@@ -6,6 +6,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,32 +24,29 @@ import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
+import java.io.IOException;
+
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 public class Main extends Application {
 
+    public static Stage stage;
     @Override
     public void start(Stage primaryStage) throws Exception{
-       // Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Pane p = new Pane();
-        Scene s = new Scene(p,720,480);
+        stage = primaryStage;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main_menu.fxml"));
+        loader.setController(new Control(primaryStage));
+
+        Scene s = new Scene(loader.load(),720,480);
         primaryStage.setScene(s);
-
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Морской бой");
         primaryStage.show();
-        GameLoop gl = new GameLoop(720,480);
-        p.getChildren().add(gl.getCanvas());
-        gl.start();
 
-        primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                gl.setWidth((Double) newValue);
-            }
-        });
+
     }
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         launch(args);
     }
 }

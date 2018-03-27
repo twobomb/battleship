@@ -19,6 +19,7 @@ public class Ship {
     BattleGrid bg;
     boolean rotate = true;
 
+
     public Ship(int r, int c, TYPE type,BattleGrid bg) throws IOException {
         this.r = r;
         this.c = c;
@@ -53,7 +54,7 @@ public class Ship {
         this.c = c;
     }
 
-    public List<Point> getAllPosition(){//Point {x:column,y:row}
+    public List<Point> getAllPosition(){//Point {col:column,row:row}
         List<Point> points = new ArrayList<>();
         points.add(new Point(c,r));
 
@@ -104,15 +105,15 @@ public class Ship {
         int w = (int) (getWidth()-1);
         int h = (int) (getHeight()-1);
         Point p = findNearCenter(new Point(x,y));
-        if(p.x+w >= bg.getColumn())
-            p.x = bg.getColumn() - w - 1;
-        if(p.y + h >= bg.getRows())
-            p.y = bg.getRows() - h - 1;
-        c = (int) p.x;
-        r = (int) p.y;
+        if(p.col +w >= bg.getColumn())
+            p.col = bg.getColumn() - w - 1;
+        if(p.row + h >= bg.getRows())
+            p.row = bg.getRows() - h - 1;
+        c = (int) p.col;
+        r = (int) p.row;
     }
     public double getDistance(Point p1,Point p2){
-        return Math.sqrt(Math.pow(p2.x-p1.x,2)+Math.pow(p2.y-p1.y,2));
+        return Math.sqrt(Math.pow(p2.col -p1.col,2)+Math.pow(p2.row -p1.row,2));
     }
     public Point findNearCenter(Point p1){//Возвращает row,col ближайшие к точке p1
         List<Point> centras =  new ArrayList<>();
@@ -128,7 +129,7 @@ public class Ship {
                 min = getDistance(p1,p2);
                 minPoint = p2;
             }
-        return new Point((minPoint.x-offX)/bg.getCellWidth(),(minPoint.y-offY)/bg.getCellHeight());
+        return new Point((minPoint.col -offX)/bg.getCellWidth(),(minPoint.row -offY)/bg.getCellHeight());
     }
     public void draw(GraphicsContext ctx){
 
