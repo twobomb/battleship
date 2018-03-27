@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="15.0" styleClass="back" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Уровень сложности" textFill="WHITE">
+         <font>
+            <Font name="Impact" size="18.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <ComboBox fx:id="level" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="178.0" promptText="Легкий" />
+      <Button fx:id="inBattle" mnemonicParsing="false" prefHeight="47.0" prefWidth="143.0" styleClass="inbattle" text="В БОЙ!" textFill="WHITE" />
+   </children>
+</VBox>

@@ -1,0 +1,23 @@
+.back{
+	-fx-background-image:url("./bg.jpg");
+	-fx-background-repeat:no-repeat;
+	-fx-background-size:cover;
+}
+.inbattle{
+	-fx-background-color: #d81f06;
+	-fx-border-color:black;
+	-fx-border-width:2;
+}
+.label{
+	-fx-background-color: #285091;
+	-fx-padding:10;
+}
+.btn{
+	-fx-background-color: #285091;
+}
+.btn:hover {
+	-fx-background-color: #333444;
+}
+.btn:pressed {
+	-fx-background-color: #777777;
+}

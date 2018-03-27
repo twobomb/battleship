@@ -25,20 +25,20 @@ public class Ship {
         this.r = r;
         this.c = c;
         this.type = type;
-        FileInputStream file = null;
+        String file = null;
         this.bg = bg;
         switch (type){
             case ONE:
-                file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\c1.png");break;
+                file = getClass().getResource("c1.png").toString();break;
             case TWO:
-                file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\c2.png");break;
+                file = getClass().getResource("c2.png").toString();break;
             case THREE:
-                file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\c3.png");break;
+                file = getClass().getResource("c3.png").toString();break;
             case FOUR:
-                file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\c4.png");break;
+                file = getClass().getResource("c4.png").toString();break;
         }
         texture = new Image(file);
-        file.close();
+
 
     }
     public boolean isDestroy(){

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="15.0" styleClass="back" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="newGame" mnemonicParsing="false" prefHeight="42.0" prefWidth="220.0" styleClass="btn" text="Новая игра" textFill="WHITE">
+         <font>
+            <Font name="Impact" size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="lanGame" mnemonicParsing="false" prefHeight="42.0" prefWidth="220.0" styleClass="btn" text="Сетевая игра" textFill="WHITE">
+         <font>
+            <Font name="Impact" size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="exitGame" mnemonicParsing="false" prefHeight="42.0" prefWidth="220.0" styleClass="btn" text="Выход" textFill="WHITE">
+         <font>
+            <Font name="Impact" size="24.0" />
+         </font>
+      </Button>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

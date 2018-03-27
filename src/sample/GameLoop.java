@@ -66,9 +66,10 @@ public class GameLoop extends AnimationTimer {
     public GameLoop(int w, int h) throws IOException {
         canvas = new Canvas(w,h);
         ctx = canvas.getGraphicsContext2D();
-        FileInputStream file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\battleship\\src\\sample\\water.png");
-        waterTexture = new Image(file);
-        file.close();
+
+        //FileInputStream file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\battleship\\src\\sample\\water.png");
+        waterTexture = new Image(getClass().getResource("water.png").toString());
+        //file.close();
         int wh = (int)(canvas.getWidth()-120)/2;
 
 

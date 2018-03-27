@@ -33,9 +33,9 @@ public class BattleGrid {
         this.y = y;
         this.w = w;
         this.h = h;
-        FileInputStream file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\battleship\\src\\sample\\kr.png");
-        krest = new Image(file);
-        file.close();
+        //FileInputStream file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\battleship\\src\\sample\\kr.png");
+        krest = new Image(getClass().getResource("kr.png").toString());
+        //file.close();
     }
     public Ship getShip(Point p,List<Ship> ships){//Вернуть корабль по точке
 
