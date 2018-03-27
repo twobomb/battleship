@@ -3,6 +3,7 @@ package sample;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -147,9 +148,22 @@ public class Ship {
                 ctx.translate(x+w/2,y+bg.getCellHeight()/2);
                 ctx.rotate(-90);
                 ctx.drawImage(texture,-w/2,-bg.getCellHeight()/2,w,h);
+                if(isDestroy()) {
+                    ctx.setGlobalAlpha(.5);
+                    ctx.setFill(Color.RED);
+                    ctx.fillRect(-w/2,-bg.getCellHeight()/2,w,h);
+                    ctx.setGlobalAlpha(1);
+                }
                 ctx.restore();
             }
-            else
-                ctx.drawImage(texture,x,y,w,h);
+            else {
+                ctx.drawImage(texture, x, y, w, h);
+                if(isDestroy()) {
+                    ctx.setGlobalAlpha(.5);
+                    ctx.setFill(Color.RED);
+                    ctx.fillRect(x,y,w,h);
+                    ctx.setGlobalAlpha(1);
+                }
+            }
     }
 }

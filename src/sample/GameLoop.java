@@ -103,6 +103,7 @@ public class GameLoop extends AnimationTimer {
             @Override
             public void isOver() {
                 winner = "Вы проиграли!";
+                enemy_bg.DRAW_SHIPS = true;
                 canvas.removeEventHandler(MouseEvent.MOUSE_PRESSED,OnMousePressedHandler);
 
             }

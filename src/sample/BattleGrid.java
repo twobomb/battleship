@@ -2,9 +2,12 @@ package sample;
 
 import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
 import java.beans.EventHandler;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -23,12 +26,16 @@ public class BattleGrid {
     int r = 10,c = 10;//Размер поля
     List<Ship> ships = new ArrayList<>();//Корабли данного поля
     List<Point> shoots = new ArrayList<>();//Выстрелы по данному полю
-    public boolean DRAW_SHIPS = true,DRAW_SHOOTS = true,DRAW_GRID = true;
-    public BattleGrid(double x,double y,double w,double h) {
+    Image krest;
+    public boolean DRAW_SHIPS = true,DRAW_SHOOTS = true,DRAW_GRID = true,DRAW_DESTROY_SHIP = true;
+    public BattleGrid(double x,double y,double w,double h) throws IOException {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
+        FileInputStream file = new FileInputStream("C:\\Users\\twobomb\\Desktop\\battleship\\src\\sample\\kr.png");
+        krest = new Image(file);
+        file.close();
     }
     public Ship getShip(Point p,List<Ship> ships){//Вернуть корабль по точке
 
@@ -330,13 +337,19 @@ public class BattleGrid {
         if(DRAW_SHIPS)
             for (Ship s : ships)
                 s.draw(ctx);
-
+        if(DRAW_DESTROY_SHIP)
+            for (Ship s : ships)
+                if(s.isDestroy())
+                    s.draw(ctx);
         if(DRAW_SHOOTS) {
+            ctx.setFill(Color.GRAY);
             ctx.save();
             ctx.translate(x, y);
             for (Point p : shoots) {
-                if (checkCollisionPoint(p))
-                    ctx.fillRect(getCellWidth() * p.col, getCellHeight() * p.row, getCellWidth(), getCellHeight());
+                if (checkCollisionPoint(p)) {
+                    ctx.drawImage(krest,getCellWidth() * p.col, getCellHeight() * p.row, getCellWidth(), getCellHeight());
+                    //ctx.fillRect(getCellWidth() * p.col, getCellHeight() * p.row, getCellWidth(), getCellHeight());
+                }
                 else
                     ctx.fillArc(getCellWidth() * p.col + getCellWidth() / 3, getCellHeight() * p.row + getCellHeight() / 3, getCellWidth() - getCellWidth() / 1.5, getCellHeight() - getCellHeight() / 1.5, 0, 360, ArcType.ROUND);
             }
