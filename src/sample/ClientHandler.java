@@ -94,7 +94,8 @@ public class ClientHandler {
                                     System.out.println(id+":Shoot recieved! ");
                                         if (isMyStep()) {
                                             getEnemy().shoots.add(p);
-                                            server.doStep();
+                                            if(LanShip.getShip(p,getEnemy().ships) == null)
+                                                server.doStep();
                                         }
 
                                     break;

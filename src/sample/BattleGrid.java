@@ -124,9 +124,9 @@ public class BattleGrid {
                 return false;
         return true;
     }
-    public void botShoot(){//Выстрел бота
+    public Point botShoot(){//Выстрел бота
         if(isOver())
-            return;
+            return null;
 
         Ship damagedShip = null;
         Point damageFirstPoint = new Point(0,0);
@@ -218,6 +218,8 @@ public class BattleGrid {
             miss = 0;
 
         shoot(shoot);
+
+        return shoot;
     }
     public boolean contains(Point p){//Точка в пределах поля?
         return getX() <= p.col && getX() + getCellWidth()*getColumn() >= p.col &&

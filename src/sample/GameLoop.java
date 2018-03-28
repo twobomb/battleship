@@ -68,7 +68,12 @@ public class GameLoop extends AnimationTimer {
                             }
                             else if(!isLanGame) {
                                 enemy_bg.shoot(p);
-                                player_bg.botShoot();
+                                if(enemy_bg.getShip(p,enemy_bg.ships) == null) {
+                                    Point botShoot = null;
+                                    do {
+                                         botShoot = player_bg.botShoot();
+                                    }while (player_bg.getShip(botShoot,player_bg.ships) != null);
+                                }
                             }
                         }
                         catch (SocketException se){
