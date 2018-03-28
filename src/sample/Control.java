@@ -46,6 +46,18 @@ public class Control implements Initializable{
                 }
             }
         });
+        lanGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("lan_menu.fxml"));
+                loader.setController(new Control3(primaryStage));
+                try {
+                    primaryStage.getScene().setRoot(loader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         exitGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

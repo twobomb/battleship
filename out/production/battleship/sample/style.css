@@ -11,6 +11,8 @@
 .label{
 	-fx-background-color: #285091;
 	-fx-padding:10;
+	-fx-font-size:15;
+	-fx-text-fill: white;
 }
 .btn{
 	-fx-background-color: #285091;

@@ -12,8 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.SocketException;
 
 public class GameLoop extends AnimationTimer {
     private float deltaTime = 0;
@@ -28,7 +31,10 @@ public class GameLoop extends AnimationTimer {
     BattleGrid enemy_bg ;
     Ship dragged = null;
     Point last_pos;
+    boolean last_rot;
     private String winner = "";
+    boolean isLanGame = false;
+    Client client;
     boolean isRun = false;
     public Canvas getCanvas() {
         return canvas;
@@ -42,14 +48,35 @@ public class GameLoop extends AnimationTimer {
                 if(!isRun && player_bg.contains(new Point(event.getX(),event.getY()))) {
                     Point p = player_bg.getNearCell(event.getX() - player_bg.getX(), event.getY() - player_bg.getY());
                     dragged = player_bg.getShip(p, player_bg.ships);
-                    if (dragged != null)
+                    if (dragged != null) {
                         last_pos = new Point(dragged.c, dragged.r);
+                        last_rot = dragged.rotate;
+                    }
                 }
                 else if (isRun && enemy_bg.contains(new Point(event.getX(),event.getY()))){
                     Point p = enemy_bg.getNearCell(event.getX() - enemy_bg.getX(), event.getY() - enemy_bg.getY());
                     if(!enemy_bg.shoots.contains(p)) {
-                        enemy_bg.shoot(p);
-                        player_bg.botShoot();
+                        try {
+                            if(isLanGame && client.isMyStep() && client.playersIsReady()){
+                                enemy_bg.shoot(p);
+                                client.os.write(5);
+                                client.os.flush();
+                                ObjectOutputStream oos = new ObjectOutputStream(client.os);
+                                oos.writeObject(p);
+                                oos.flush();
+
+                            }
+                            else if(!isLanGame) {
+                                enemy_bg.shoot(p);
+                                player_bg.botShoot();
+                            }
+                        }
+                        catch (SocketException se){
+                                client.gameOver();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -76,7 +103,7 @@ public class GameLoop extends AnimationTimer {
         player_bg = new BattleGrid(40,canvas.getHeight()-40 - wh,wh,wh);
         enemy_bg = new BattleGrid(80+wh,canvas.getHeight()-40 - wh,wh,wh);
 
-        enemy_bg.DRAW_SHIPS = false;
+        //enemy_bg.DRAW_SHIPS = false;
         player_bg.generateScene();
         enemy_bg.generateScene();
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,OnMousePressedHandler);
@@ -88,6 +115,7 @@ public class GameLoop extends AnimationTimer {
                     if(player_bg.checkCollision(dragged)) {
                         dragged.setRow((int) last_pos.row);
                         dragged.setColumn((int) last_pos.col);
+                        dragged.rotate = last_rot;
                     }
                     dragged = null;
                 }

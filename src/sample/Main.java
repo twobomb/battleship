@@ -25,6 +25,9 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketAddress;
 
 import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
@@ -37,8 +40,11 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main_menu.fxml"));
         loader.setController(new Control(primaryStage));
+        primaryStage.setMinWidth(720);
+        primaryStage.setMinHeight(480);
 
         Scene s = new Scene(loader.load(),720,480);
+
         primaryStage.setScene(s);
         primaryStage.setTitle("Морской бой");
         primaryStage.show();

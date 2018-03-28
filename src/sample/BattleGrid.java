@@ -9,6 +9,7 @@ import javafx.scene.shape.ArcType;
 import java.beans.EventHandler;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
@@ -357,7 +358,7 @@ public class BattleGrid {
         }
     }
 }
-class Point{//Класс точки
+class Point implements Serializable{//Класс точки
     public double col, row;
     public Point(double col, double row) {
         this.col = col;
