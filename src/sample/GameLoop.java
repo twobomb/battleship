@@ -103,7 +103,7 @@ public class GameLoop extends AnimationTimer {
         player_bg = new BattleGrid(40,canvas.getHeight()-40 - wh,wh,wh);
         enemy_bg = new BattleGrid(80+wh,canvas.getHeight()-40 - wh,wh,wh);
 
-        //enemy_bg.DRAW_SHIPS = false;
+        enemy_bg.DRAW_SHIPS = false;
         player_bg.generateScene();
         enemy_bg.generateScene();
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,OnMousePressedHandler);

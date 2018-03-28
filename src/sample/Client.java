@@ -156,7 +156,7 @@ public class Client extends Socket {
                             finalGl.isRun = true;
                             putField(finalGl);
                             tm = new Timeline();
-                            KeyFrame kf = new KeyFrame(Duration.millis(300), new EventHandler<ActionEvent>() {
+                            KeyFrame kf = new KeyFrame(Duration.millis(600), new EventHandler<ActionEvent>() {
 
                                 @Override
                                 public void handle(ActionEvent event) {
@@ -171,9 +171,9 @@ public class Client extends Socket {
                                             if (finalGl.player_bg.isOver() || finalGl.enemy_bg.isOver()) {
                                                 tm.stop();
                                                 if (finalGl.player_bg.isOver())
-                                                    status.setText("Победа");
-                                                else
                                                     status.setText("Поражение");
+                                                else
+                                                    status.setText("Победа");
 
                                             }
                                         }
@@ -181,6 +181,7 @@ public class Client extends Socket {
                                             status.setText("Ожидание игрока 2");
                                     }
                                     catch (SocketException se){
+                                        se.printStackTrace();
                                         tm.stop();
                                         gameOver();
                                         Platform.runLater(new Runnable() {
