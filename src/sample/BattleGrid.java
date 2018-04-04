@@ -5,6 +5,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.beans.EventHandler;
 import java.io.FileInputStream;
@@ -28,7 +30,7 @@ public class BattleGrid {
     List<Ship> ships = new ArrayList<>();//Корабли данного поля
     List<Point> shoots = new ArrayList<>();//Выстрелы по данному полю
     Image krest;
-    public boolean DRAW_SHIPS = true,DRAW_SHOOTS = true,DRAW_GRID = true,DRAW_DESTROY_SHIP = true;
+    public boolean DRAW_SHIPS = true,DRAW_SHOOTS = true,DRAW_GRID = true,DRAW_DESTROY_SHIP = true,DRAW_NUMBERS = true;
     public BattleGrid(double x,double y,double w,double h) throws IOException {
         this.x = x;
         this.y = y;
@@ -357,6 +359,28 @@ public class BattleGrid {
                     ctx.fillArc(getCellWidth() * p.col + getCellWidth() / 3, getCellHeight() * p.row + getCellHeight() / 3, getCellWidth() - getCellWidth() / 1.5, getCellHeight() - getCellHeight() / 1.5, 0, 360, ArcType.ROUND);
             }
             ctx.restore();
+        }
+        if(DRAW_NUMBERS) {
+            double h = getCellHeight() > 30?30:getCellHeight();
+            ctx.setFont(Font.font("no-serif", h));
+            ctx.setFill(Color.BLACK);
+            int offset = 5;
+            for (int i = 1; i <= getRows(); i++) {
+                Text t = new Text(String.valueOf(i));
+                t.setFont(ctx.getFont());
+                double y = getY()+h + (i-1) * getCellHeight();
+                y += getCellHeight()/2 - h/2;
+                ctx.fillText(t.getText(), getX() - t.getLayoutBounds().getWidth()-offset, y);
+            }
+
+            char c = 'A';
+            for (int i = 1; i <= getColumn(); i++, c++) {
+                Text t = new Text(String.valueOf(c));
+                t.setFont(ctx.getFont());
+                double x = getX() + (i - 1) * getCellWidth();
+                x += getCellWidth() / 2 - t.getLayoutBounds().getWidth() / 2;
+                ctx.fillText(t.getText(), x, getY()-offset, getCellWidth());
+            }
         }
     }
 }
